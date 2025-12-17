@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Sister</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
+        body {
+            background-color: #ffc0cb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+        .hidden { display: none !important; }
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            z-index: 10;
+            position: relative;
+        }
+        .btn {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            background-color: #fff;
+            color: #c2185b;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Pacifico', cursive;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #ffeef2;
+        }
+        .btn-back {
+            background-color: #fce4ec;
+            color: #880e4f;
+            padding: 12px 20px;
+        }
+        #scene1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInPage 1s ease-in;
+        }
+        .bouquet-svg {
+            width: 300px;
+            height: 400px;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+        }
+        .flower-group { transform-origin: bottom center; }
+        .flower-1 { animation: sway 3s infinite ease-in-out; }
+        .flower-2 { animation: swayLeft 4s infinite ease-in-out; }
+        .flower-3 { animation: swayRight 3.5s infinite ease-in-out; }
+        .flower-4 { animation: sway 4.5s infinite ease-in-out reverse; }
+        .flower-5 { animation: swayLeft 3.8s infinite ease-in-out reverse; }
+        @keyframes sway { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(2deg); } }
+        @keyframes swayLeft { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(-3deg); } }
+        @keyframes swayRight { 0%, 100% { transform: rotate(1deg); } 50% { transform: rotate(3deg); } }
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        #scene2 { position: relative; }
+        .message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5em;
+            color: #c2185b;
+            margin-top: 30px;
+            opacity: 0;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+        }
+        .play-anim .plate { animation: slideUp 0.8s ease-out forwards 0.5s; }
+        .play-anim .layer-bottom { animation: dropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1s; }
+        .play-anim .layer-middle { animation: dropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.5s; }
+        .play-anim .layer-top { animation: dropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2s; }
+        .play-anim .icing { animation: fadeIn 0.5s forwards 2.2s; }
+        .play-anim .candle { animation: growCandle 0.5s ease-out forwards 2.5s; }
+        .play-anim .flame { animation: lightFlame 0.5s forwards 3s, flicker 0.1s infinite alternate 3.5s; }
+        .play-anim .message { animation: textFadeIn 1s ease-out forwards 3.5s; }
+        .cake { position: relative; width: 250px; height: 200px; margin: 0 auto; }
+        .plate { width: 270px; height: 10px; background-color: #fff; border-radius: 10px; position: absolute; bottom: 0; left: -10px; box-shadow: 0 5px 10px rgba(0,0,0,0.2); opacity: 0; }
+        .layer { position: absolute; width: 100%; background-color: #6d4c41; border-radius: 10px 10px 5px 5px; opacity: 0; }
+        .layer-bottom { height: 60px; bottom: 10px; }
+        .layer-middle { height: 50px; width: 90%; bottom: 70px; left: 5%; background-color: #8d6e63; }
+        .layer-top { height: 45px; width: 80%; bottom: 120px; left: 10%; background-color: #a1887f; }
+        .icing { position: absolute; width: 84%; height: 15px; background-color: #ffecb3; top: 35px; left: 8%; border-radius: 10px; z-index: 2; opacity: 0; }
+        .candle { width: 15px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4081 5px, #ff4081 10px); position: absolute; bottom: 165px; left: 50%; transform: translateX(-50%) scaleY(0); transform-origin: bottom; border-radius: 2px; }
+        .flame { width: 15px; height: 25px; background-color: #ffab00; border-radius: 50% 50% 20% 20%; position: absolute; top: -25px; left: 0; box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800; transform: scale(0); }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes dropIn { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes growCandle { to { transform: translateX(-50%) scaleY(1); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes lightFlame { to { transform: scale(1); } }
+        @keyframes flicker { from { transform: scale(1); opacity: 0.9; } to { transform: scale(1.1); opacity: 1; } }
+        @keyframes textFadeIn { to { opacity: 1; transform: translateY(0); } }
+        #scene3 { perspective: 1000px; }
+        .letter-card {
+            background-color: #fffaf0;
+            width: 300px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: rotateX(90deg);
+            transform-origin: top;
+            transition: transform 1s ease-out;
+            border: 2px solid #e1b1b1;
+            position: relative;
+        }
+        .open-letter { transform: rotateX(0deg) !important; }
+        .letter-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #5d4037;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .signature {
+            margin-top: 20px;
+            text-align: right;
+            font-weight: bold;
+            color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div id="scene1">
+        <svg class="bouquet-svg" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gradPink" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ec407a;stop-opacity:1" /><stop offset="100%" style="stop-color:#f48fb1;stop-opacity:1" /></linearGradient>
+                <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ab47bc;stop-opacity:1" /><stop offset="100%" style="stop-color:#ce93d8;stop-opacity:1" /></linearGradient>
+                <linearGradient id="gradRed" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#e53935;stop-opacity:1" /><stop offset="100%" style="stop-color:#ef9a9a;stop-opacity:1" /></linearGradient>
+                <linearGradient id="paperGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#d7ccc8;stop-opacity:1" /><stop offset="100%" style="stop-color:#a1887f;stop-opacity:1" /></linearGradient>
+            </defs>
+            <path d="M70,150 L130,150 L100,240 Z" fill="url(#paperGrad)" />
+            <g class="stems" stroke="#4caf50" stroke-width="3" fill="none">
+                <path d="M100,160 Q90,200 100,240" /><path d="M100,160 Q110,200 100,240" /><path d="M80,140 Q90,200 100,240" />
+                <path d="M120,140 Q110,200 100,240" /><path d="M60,150 Q80,200 100,240" /><path d="M140,150 Q120,200 100,240" />
+            </g>
+            <g class="flower-group flower-1"><path d="M100,160 L100,100" stroke="#66bb6a" stroke-width="4"/><path d="M100,100 C80,100 80,70 100,60 C120,70 120,100 100,100" fill="url(#gradPink)"/></g>
+            <g class="flower-group flower-2"><path d="M80,140 L70,90" stroke="#66bb6a" stroke-width="4"/><path d="M70,90 C50,90 50,60 70,50 C90,60 90,90 70,90" fill="url(#gradPurple)"/></g>
+            <g class="flower-group flower-3"><path d="M120,140 L130,90" stroke="#66bb6a" stroke-width="4"/><path d="M130,90 C110,90 110,60 130,50 C150,60 150,90 130,90" fill="url(#gradRed)"/></g>
+            <g class="flower-group flower-4"><path d="M60,150 L50,110" stroke="#66bb6a" stroke-width="4"/><path d="M50,110 C35,110 35,85 50,75 C65,85 65,110 50,110" fill="url(#gradPink)"/></g>
+            <g class="flower-group flower-5"><path d="M140,150 L150,110" stroke="#66bb6a" stroke-width="4"/><path d="M150,110 C135,110 135,85 150,75 C165,85 165,110 150,110" fill="url(#gradPurple)"/></g>
+            <path d="M60,160 C60,160 100,180 140,160 L100,240 Z" fill="url(#paperGrad)" opacity="0.9" />
+            <path d="M90,190 L110,190 L110,200 L90,200 Z" fill="#e91e63" />
+            <path d="M90,190 Q80,180 80,200 Q90,200 90,195" fill="none" stroke="#e91e63" stroke-width="3"/>
+            <path d="M110,190 Q120,180 120,200 Q110,200 110,195" fill="none" stroke="#e91e63" stroke-width="3"/>
+        </svg>
+        <div class="btn-container">
+            <button class="btn" onclick="toScene2()">Click here beautiful</button>
+        </div>
+    </div>
+    <div id="scene2" class="hidden">
+        <div class="cake">
+            <div class="plate"></div>
+            <div class="layer layer-bottom"></div>
+            <div class="layer layer-middle"></div>
+            <div class="layer layer-top"></div>
+            <div class="icing"></div>
+            <div class="candle"><div class="flame"></div></div>
+        </div>
+        <div class="message">Happy Birthday Sister!</div>
+        <div class="btn-container">
+            <button class="btn btn-back" onclick="toScene1()">← Back</button>
+            <button class="btn" onclick="toScene3()">Click just one more time</button>
+        </div>
+    </div>
+    <div id="scene3" class="hidden">
+        <div class="letter-card" id="letterCard">
+            <div class="letter-text">
+                Dear Sister,<br><br>
+                Wishing you the happiest birthday ever! You bring so much joy and light into my life.<br><br>
+                May your day be filled with love, laughter, and all your favorite things.<br><br>
+                Love you always!
+                <div class="signature">- Your Sister</div>
+            </div>
+        </div>
+        <div class="btn-container" style="margin-top:40px;">
+            <button class="btn btn-back" onclick="toScene2()">← Back</button>
+        </div>
+    </div>
+    <script>
+        function toScene1() {
+            document.getElementById('scene1').classList.remove('hidden');
+            document.getElementById('scene2').classList.add('hidden');
+            document.getElementById('scene3').classList.add('hidden');
+            document.getElementById('scene2').classList.remove('play-anim');
+        }
+        function toScene2() {
+            document.getElementById('scene1').classList.add('hidden');
+            const scene2 = document.getElementById('scene2');
+            scene2.classList.remove('hidden');
+            document.getElementById('scene3').classList.add('hidden');
+            document.getElementById('letterCard').classList.remove('open-letter');
+            scene2.classList.remove('play-anim');
+            void scene2.offsetWidth;
+            scene2.classList.add('play-anim');
+            if(document.getElementsByClassName('confetti').length === 0) createConfetti();
+        }
+        function toScene3() {
+            document.getElementById('scene2').classList.add('hidden');
+            document.getElementById('scene3').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('letterCard').classList.add('open-letter'); }, 100);
+        }
+        function createConfetti() {
+            const colors = ['#ff4081', '#ffeb3b', '#4caf50', '#2196f3', '#fff'];
+            for (let i = 0; i < 50; i++) {
+                let div = document.createElement('div');
+                div.style.position = 'absolute';
+                div.style.width = '10px';
+                div.style.height = '10px';
+                div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                div.style.left = Math.random() * 100 + 'vw';
+                div.style.top = -10 + 'px';
+                div.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+                div.style.zIndex = '0';
+                document.body.appendChild(div);
+            }
+            const styleSheet = document.createElement("style");
+            styleSheet.innerText = `@keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }`;
+            document.head.appendChild(styleSheet);
+        }
+    </script>
+</body>
+</html>
